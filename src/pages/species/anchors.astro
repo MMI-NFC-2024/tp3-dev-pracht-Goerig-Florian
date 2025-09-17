@@ -3,66 +3,70 @@ import Layout from "../../layouts/Layout.astro";
 import GraphicSpecies from "../../components/GraphicSpecies.astro";
 ---
 
-<Layout>
-  <h1>Espèces — Page unique avec ancres (slider)</h1>
+<Layout title="Ancres — TP3">
+  <h1 class="text-3xl font-extrabold mb-4">
+    Espèces — Page unique avec ancres (slider)
+  </h1>
 
-  <nav class="nav-pills" aria-label="Espèces">
-  <a href="/species/Adelie" aria-current={Astro.url.pathname.endsWith("/Adelie") ? "page" : undefined}>Adelie</a>
-  <a href="/species/Gentoo" aria-current={Astro.url.pathname.endsWith("/Gentoo") ? "page" : undefined}>Gentoo</a>
-  <a href="/species/Chinstrap" aria-current={Astro.url.pathname.endsWith("/Chinstrap") ? "page" : undefined}>Chinstrap</a>
-</nav>
+  <!-- Select de navigation (remplace les liens d’ancrage) -->
+  <div class="mb-3">
+    <label for="species-anchor" class="sr-only">Aller à l’espèce</label>
+    <select
+      id="species-anchor"
+      class="rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm shadow-sm"
+    >
+      <option value="adelie" selected>Adelie</option>
+      <option value="gentoo">Gentoo</option>
+      <option value="chinstrap">Chinstrap</option>
+    </select>
+  </div>
 
-
-  <div class="slider" id="slider">
-    <section class="slide" id="adelie">
+  <!-- Slider horizontal -->
+  <div
+    id="slider"
+    class="flex overflow-x-auto gap-4 pb-2 scroll-smooth snap-x snap-mandatory"
+  >
+    <section
+      id="adelie"
+      class="snap-start flex-[0_0_100%] min-w-full bg-white border border-gray-200 rounded-xl p-4"
+    >
       <GraphicSpecies species="Adelie" title="Adelie" />
     </section>
-    <section class="slide" id="gentoo">
+    <section
+      id="gentoo"
+      class="snap-start flex-[0_0_100%] min-w-full bg-white border border-gray-200 rounded-xl p-4"
+    >
       <GraphicSpecies species="Gentoo" title="Gentoo" />
     </section>
-    <section class="slide" id="chinstrap">
+    <section
+      id="chinstrap"
+      class="snap-start flex-[0_0_100%] min-w-full bg-white border border-gray-200 rounded-xl p-4"
+    >
       <GraphicSpecies species="Chinstrap" title="Chinstrap" />
     </section>
   </div>
 
-  <style>
-    .slider {
-      display: flex;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      gap: 1rem;
-      padding-bottom: 0.5rem;
-      scroll-behavior: smooth;
-    }
-    .slide {
-      flex: 0 0 100%;
-      min-width: 100%;
-      scroll-snap-align: start;
-      background: #fff;
-      border: 1px solid #eee;
-      border-radius: 12px;
-      padding: 1rem;
-    }
-  </style>
-
   <script>
-    const nav = document.getElementById("anchors-nav");
-    nav?.addEventListener("click", (e) => {
-      const a = e.target.closest('a[href^="#"]');
-      if (!a) return;
-      const id = a.getAttribute("href").slice(1);
-      const el = document.getElementById(id);
-      if (!el) return;
-      e.preventDefault();
-      el.scrollIntoView({
-        behavior: "smooth",
-        inline: "start",
-        block: "nearest",
-      });
-      for (const link of nav.querySelectorAll("a"))
-        link.classList.remove("is-active");
-      a.classList.add("is-active");
-      history.replaceState(null, "", "#" + id);
+    // Sur changement, on met à jour location.hash → provoque le scroll vers la slide
+    const selAnchor = document.getElementById("species-anchor");
+    selAnchor?.addEventListener("change", (evt) => {
+      const value = /** @type {HTMLSelectElement} */ (evt.target).value;
+      location.hash = value; // "#adelie" | "#gentoo" | "#chinstrap"
+      // Optionnel: si tu veux forcer le scroll en plus (au cas où) :
+      document
+        .getElementById(value)
+        ?.scrollIntoView({
+          behavior: "smooth",
+          inline: "start",
+          block: "nearest",
+        });
     });
+
+    // Si on arrive avec un hash dans l’URL, on positionne le select en conséquence
+    const init = location.hash?.slice(1);
+    if (init) {
+      const opt = selAnchor?.querySelector(`option[value="${init}"]`);
+      if (opt) selAnchor.value = init;
+    }
   </script>
 </Layout>
