@@ -43,6 +43,12 @@ const is = (p: string) => (p === "/" ? path === "/" : path.startsWith(p));
             class={`inline-flex items-center rounded-full px-3 py-2 text-sm font-semibold shadow-sm ${is("/species/anchors") ? "bg-white border border-gray-200" : "border border-transparent hover:bg-gray-100"}`}
             >Ancres</a
           >
+          <a
+            href="/species/tabs/"
+            class="inline-flex items-center rounded-full border border-gray-200 bg-white px-3 py-2 text-sm font-semibold shadow-sm hover:bg-gray-100"
+          >
+            Espèces (onglets)
+          </a>
         </nav>
       </div>
     </header>
