@@ -1,0 +1,32 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Accueil — R312-TP2 Florian Goerig MMi2 C1 Observable Plot">
+  <h1>Exemples de graphiques</h1>
+
+  <p class="card" style="margin-bottom:1rem;">
+    Ce site <strong
+      >réutilise la base de styles et une partie du contenu du TP1</strong
+    >
+    (structure, navigation, ton éditorial). Ici, on décline ces éléments pour expérimenter
+    trois intégrations de graphiques avec Observable Plot.
+  </p>
+
+  <nav class="nav-pills" aria-label="Sections">
+    <a href="/species">Espèces (3 pages dédiées)</a>
+    <a href="/test-iframe">Test IFRAME</a>
+    <a href="/species/anchors">Page à ancres (slider)</a>
+  </nav>
+
+  <div class="card">
+    <strong>Sources :</strong>
+    <ul>
+      <li>
+        Dataset pingouins (Palmer Penguins) — <code
+          >src/assets/penguins.json</code>
+      </li>
+      <li>Observable Plot — Getting Started</li>
+    </ul>
+  </div>
+</Layout>

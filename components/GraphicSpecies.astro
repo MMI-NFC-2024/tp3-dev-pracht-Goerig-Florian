@@ -1,0 +1,56 @@
+---
+/**
+ * Composant réutilisable pour afficher un graphique filtré par espèce.
+ *
+ * Props :
+ *  - species (string) : "Adelie" | "Gentoo" | "Chinstrap"
+ *  - title? (string)  : titre h2 optionnel (par défaut = species)
+ *  - xKey? (string)   : clé X (défaut: "culmen_length_mm")
+ *  - yKey? (string)   : clé Y (défaut: "culmen_depth_mm")
+ *  - colorBy? (string): attribut de couleur (défaut: "sex")
+ */
+import PlotFigure from "./PlotFigure.astro";
+import * as Plot from "@observablehq/plot";
+import penguins from "../assets/penguins.json";
+
+interface Props {
+  species: string;
+  title?: string;
+  xKey?: string;
+  yKey?: string;
+  colorBy?: string;
+}
+
+const {
+  species,
+  title = species,
+  xKey = "culmen_length_mm",
+  yKey = "culmen_depth_mm",
+  colorBy = "sex",
+} = Astro.props as Props;
+
+const data = penguins.filter((d) => d.species === species);
+
+// Options de graphique (scatter standard)
+const options = {
+  marginLeft: 48,
+  marginBottom: 48,
+  grid: true,
+  x: { label: xKey },
+  y: { label: yKey },
+  color: { legend: true },
+  marks: [
+    Plot.dot(
+      data.filter((d) => d[xKey] != null && d[yKey] != null),
+      { x: xKey, y: yKey, stroke: colorBy, r: 3 }
+    ),
+  ],
+};
+---
+
+<section>
+  {title && <h2>{title}</h2>}
+  <div class="card" style="margin-top:.5rem;">
+    <PlotFigure options={options} />
+  </div>
+</section>

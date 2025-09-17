@@ -1,0 +1,29 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import GraphicSpecies from "../../components/GraphicSpecies.astro";
+---
+
+<Layout title="Chinstrap — Espèces">
+  <h1>Espèce : Chinstrap</h1>
+
+  <nav class="nav-pills" aria-label="Espèces">
+    <a
+      href="/species/Adelie"
+      aria-current={Astro.url.pathname.endsWith("/Adelie") ? "page" : undefined}
+      >Adelie</a
+    >
+    <a
+      href="/species/Gentoo"
+      aria-current={Astro.url.pathname.endsWith("/Gentoo") ? "page" : undefined}
+      >Gentoo</a
+    >
+    <a
+      href="/species/Chinstrap"
+      aria-current={Astro.url.pathname.endsWith("/Chinstrap")
+        ? "page"
+        : undefined}>Chinstrap</a
+    >
+  </nav>
+
+  <GraphicSpecies species="Chinstrap" />
+</Layout>
