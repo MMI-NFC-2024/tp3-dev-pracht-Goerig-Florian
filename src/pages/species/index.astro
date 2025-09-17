@@ -2,18 +2,28 @@
 import Layout from "../../layouts/Layout.astro";
 ---
 
-<Layout title="Espèces — TP2">
-  <h1>Espèces de pingouins</h1>
+<Layout title="Espèces — TP3">
+  <h1 class="text-3xl font-extrabold mb-4">Espèces de pingouins</h1>
 
-  <p class="card" style="margin-bottom:1rem;">
-    Cette section reprend la mise en forme du TP1 et présente les graphiques par
-    espèce. Naviguez entre les sous-pages pour comparer visuellement les
-    mesures.
+  <p class="bg-white border border-gray-200 rounded-xl p-4 shadow-sm mb-4">
+    Naviguez vers une espèce ou utilisez le select sur chaque page.
   </p>
 
-  <nav class="nav-pills" aria-label="Espèces">
-    <a href="/species/Adelie">Adelie</a>
-    <a href="/species/Gentoo">Gentoo</a>
-    <a href="/species/Chinstrap">Chinstrap</a>
+  <nav class="flex flex-wrap gap-2">
+    <a
+      href="/species/Adelie/"
+      class="inline-flex items-center rounded-full border border-gray-200 bg-white px-3 py-2 text-sm font-semibold shadow-sm hover:bg-gray-100"
+      >Adelie</a
+    >
+    <a
+      href="/species/Gentoo/"
+      class="inline-flex items-center rounded-full border border-gray-200 bg-white px-3 py-2 text-sm font-semibold shadow-sm hover:bg-gray-100"
+      >Gentoo</a
+    >
+    <a
+      href="/species/Chinstrap/"
+      class="inline-flex items-center rounded-full border border-gray-200 bg-white px-3 py-2 text-sm font-semibold shadow-sm hover:bg-gray-100"
+      >Chinstrap</a
+    >
   </nav>
 </Layout>
