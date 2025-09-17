@@ -5,4 +5,4 @@
 - Nom : goerig
 - Prénom : florian
 
-# Remarques : TP fait exeptionnellement en distancielle (vu avec M. Chatonnay)
+# Remarques : /
