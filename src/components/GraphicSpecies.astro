@@ -1,14 +1,4 @@
 ---
-/**
- * Composant réutilisable pour afficher un graphique filtré par espèce.
- *
- * Props :
- *  - species (string) : "Adelie" | "Gentoo" | "Chinstrap"
- *  - title? (string)  : titre h2 optionnel (par défaut = species)
- *  - xKey? (string)   : clé X (défaut: "culmen_length_mm")
- *  - yKey? (string)   : clé Y (défaut: "culmen_depth_mm")
- *  - colorBy? (string): attribut de couleur (défaut: "sex")
- */
 import PlotFigure from "./PlotFigure.astro";
 import * as Plot from "@observablehq/plot";
 import penguins from "../assets/penguins.json";
@@ -31,7 +21,6 @@ const {
 
 const data = penguins.filter((d) => d.species === species);
 
-// Options de graphique (scatter standard)
 const options = {
   marginLeft: 48,
   marginBottom: 48,
@@ -49,8 +38,8 @@ const options = {
 ---
 
 <section>
-  {title && <h2>{title}</h2>}
-  <div class="card" style="margin-top:.5rem;">
+  {title && <h2 class="text-xl font-bold mb-2">{title}</h2>}
+  <div class="bg-white border border-gray-200 rounded-xl p-4 shadow-sm">
     <PlotFigure options={options} />
   </div>
 </section>
