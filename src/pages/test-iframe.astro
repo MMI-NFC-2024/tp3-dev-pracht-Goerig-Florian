@@ -7,7 +7,7 @@ import Layout from "../layouts/Layout.astro";
     Test IFRAME — Espèces de pingouins
   </h1>
 
-  <!-- Select de navigation (remplace le menu) -->
+  <!-- Select de navigation -->
   <div class="mb-4">
     <label for="species-iframe" class="sr-only">Choisir une espèce</label>
     <select
@@ -25,42 +25,91 @@ import Layout from "../layouts/Layout.astro";
       id="speciesFrame"
       name="speciesFrame"
       src="/species/Adelie/"
-      <!--
-      valeur
-      initiale
-      --
-    >
-      title="Graphique d'espèce" class="w-full h-[600px] block border-0"
-      onload="resizeIframe(this)"></iframe
-    >
+      title="Graphique d'espèce"
+      class="w-full block border-0 min-h-[400px]"></iframe>
   </div>
 
   <script>
-    // Changer la page affichée en modifiant la propriété src
-    const sel = document.getElementById("species-iframe");
-    const frame = document.getElementById("speciesFrame");
-    sel?.addEventListener("change", (evt) => {
-      const value = /** @type {HTMLSelectElement} */ (evt.target).value;
-      frame.src = "/species/" + value + "/"; // ← slash final pour Netlify
-    });
+    // --- helpers hauteur -----------------------------------------------------
+    function computeDocHeight(doc) {
+      const html = doc.documentElement;
+      const body = doc.body;
+      return Math.max(
+        body?.scrollHeight || 0,
+        html?.scrollHeight || 0,
+        body?.offsetHeight || 0,
+        html?.offsetHeight || 0,
+        body?.clientHeight || 0,
+        html?.clientHeight || 0
+      );
+    }
 
-    // Redimension auto (même domaine)
-    function resizeIframe(iframe) {
+    function fitIframe(iframe) {
+      if (!iframe?.contentWindow) return;
       try {
         const doc = iframe.contentDocument || iframe.contentWindow.document;
         if (!doc) return;
-        const html = doc.documentElement,
-          body = doc.body;
-        const h = Math.max(
-          body?.scrollHeight || 0,
-          html?.scrollHeight || 0,
-          body?.offsetHeight || 0,
-          html?.offsetHeight || 0,
-          body?.clientHeight || 0,
-          html?.clientHeight || 0
+
+        // Ajustement immédiat + petits délais (le temps que Plot rende)
+        const setH = () => (iframe.style.height = computeDocHeight(doc) + "px");
+        setH();
+        setTimeout(setH, 50);
+        setTimeout(setH, 250);
+
+        // Observers pour ajustements ultérieurs
+        iframe.__ro?.disconnect?.();
+        iframe.__mo?.disconnect?.();
+
+        const ro = new iframe.contentWindow.ResizeObserver(setH);
+        ro.observe(doc.documentElement);
+        ro.observe(doc.body);
+
+        const mo = new iframe.contentWindow.MutationObserver(setH);
+        mo.observe(doc.body, {
+          childList: true,
+          subtree: true,
+          attributes: true,
+          characterData: true,
+        });
+
+        iframe.contentWindow.addEventListener("hashchange", () =>
+          requestAnimationFrame(setH)
         );
-        iframe.style.height = h + 16 + "px";
-      } catch (_) {}
+
+        iframe.__ro = ro;
+        iframe.__mo = mo;
+      } catch (e) {
+        // Cross-origin : pas notre cas ici
+        console.warn("fitIframe error:", e);
+      }
     }
+
+    // --- wiring --------------------------------------------------------------
+    const sel = document.getElementById("species-iframe");
+    const frame = document.getElementById("speciesFrame");
+
+    // Ajuster quand l’iframe a fini de charger
+    frame.addEventListener("load", () => fitIframe(frame));
+
+    // Premier ajustement (au cas où la page est déjà prête avant le parse du script)
+    // et quand le DOM du parent est prêt :
+    if (document.readyState === "complete") {
+      // Si l’iframe a déjà chargé, on ajuste tout de suite
+      try {
+        fitIframe(frame);
+      } catch {}
+    } else {
+      window.addEventListener("load", () => {
+        try {
+          fitIframe(frame);
+        } catch {}
+      });
+    }
+
+    // Changer de page via le select (on laisse l’événement 'load' faire l’ajustement)
+    sel?.addEventListener("change", (evt) => {
+      const value = /** @type {HTMLSelectElement} */ (evt.target).value;
+      frame.src = "/species/" + value + "/"; // trailing slash pour Netlify
+    });
   </script>
 </Layout>
