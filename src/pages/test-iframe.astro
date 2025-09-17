@@ -7,42 +7,50 @@ import Layout from "../layouts/Layout.astro";
     Test IFRAME — Espèces de pingouins
   </h1>
 
-  <nav class="flex flex-wrap gap-2 mb-4">
-    <a
-      href="/species/Adelie/"
-      target="speciesFrame"
-      class="inline-flex items-center rounded-full border border-gray-200 bg-white px-3 py-2 text-sm font-semibold shadow-sm hover:bg-gray-100"
-      >Adelie</a
+  <!-- Select de navigation (remplace le menu) -->
+  <div class="mb-4">
+    <label for="species-iframe" class="sr-only">Choisir une espèce</label>
+    <select
+      id="species-iframe"
+      class="rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm shadow-sm"
     >
-    <a
-      href="/species/Gentoo/"
-      target="speciesFrame"
-      class="inline-flex items-center rounded-full border border-gray-200 bg-white px-3 py-2 text-sm font-semibold shadow-sm hover:bg-gray-100"
-      >Gentoo</a
-    >
-    <a
-      href="/species/Chinstrap/"
-      target="speciesFrame"
-      class="inline-flex items-center rounded-full border border-gray-200 bg-white px-3 py-2 text-sm font-semibold shadow-sm hover:bg-gray-100"
-      >Chinstrap</a
-    >
-  </nav>
+      <option value="Adelie" selected>Adelie</option>
+      <option value="Chinstrap">Chinstrap</option>
+      <option value="Gentoo">Gentoo</option>
+    </select>
+  </div>
 
   <div class="border border-gray-200 rounded-xl overflow-hidden">
     <iframe
+      id="speciesFrame"
       name="speciesFrame"
       src="/species/Adelie/"
-      title="Graphique d'espèce"
-      class="w-full h-[600px] block border-0"
-      onload="resizeIframe(this)"></iframe>
+      <!--
+      valeur
+      initiale
+      --
+    >
+      title="Graphique d'espèce" class="w-full h-[600px] block border-0"
+      onload="resizeIframe(this)"></iframe
+    >
   </div>
 
   <script>
+    // Changer la page affichée en modifiant la propriété src
+    const sel = document.getElementById("species-iframe");
+    const frame = document.getElementById("speciesFrame");
+    sel?.addEventListener("change", (evt) => {
+      const value = /** @type {HTMLSelectElement} */ (evt.target).value;
+      frame.src = "/species/" + value + "/"; // ← slash final pour Netlify
+    });
+
+    // Redimension auto (même domaine)
     function resizeIframe(iframe) {
       try {
         const doc = iframe.contentDocument || iframe.contentWindow.document;
-        const html = doc?.documentElement,
-          body = doc?.body;
+        if (!doc) return;
+        const html = doc.documentElement,
+          body = doc.body;
         const h = Math.max(
           body?.scrollHeight || 0,
           html?.scrollHeight || 0,
@@ -52,7 +60,7 @@ import Layout from "../layouts/Layout.astro";
           html?.clientHeight || 0
         );
         iframe.style.height = h + 16 + "px";
-      } catch (e) {}
+      } catch (_) {}
     }
   </script>
 </Layout>
