@@ -2,7 +2,7 @@
 
 - URL site WEB : r312-tp3-florian-goerig.netlify.app
 - URL Notebook Observable :
-- Nom : goerig
-- Prénom : florian
+- Nom : Goerig
+- Prénom : Florian
 
 # Remarques : /
