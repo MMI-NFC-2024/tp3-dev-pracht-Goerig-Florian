@@ -3,27 +3,29 @@ import Layout from "../../layouts/Layout.astro";
 import GraphicSpecies from "../../components/GraphicSpecies.astro";
 ---
 
-<Layout title="Adelie — Espèces">
-  <h1>Espèce : Adelie</h1>
+<Layout title="Adelie — TP3">
+  <h1 class="text-3xl font-extrabold mb-4">Espèce : Adelie</h1>
 
-  <nav class="nav-pills" aria-label="Espèces">
-    <a
-      href="/species/Adelie"
-      aria-current={Astro.url.pathname.endsWith("/Adelie") ? "page" : undefined}
-      >Adelie</a
+  <!-- Select de navigation -->
+  <div class="mb-4">
+    <label for="species" class="sr-only">Changer d’espèce</label>
+    <select
+      id="species"
+      class="rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm shadow-sm"
     >
-    <a
-      href="/species/Gentoo"
-      aria-current={Astro.url.pathname.endsWith("/Gentoo") ? "page" : undefined}
-      >Gentoo</a
-    >
-    <a
-      href="/species/Chinstrap"
-      aria-current={Astro.url.pathname.endsWith("/Chinstrap")
-        ? "page"
-        : undefined}>Chinstrap</a
-    >
-  </nav>
+      <option value="Adelie" selected>Adelie</option>
+      <option value="Chinstrap">Chinstrap</option>
+      <option value="Gentoo">Gentoo</option>
+    </select>
+  </div>
 
   <GraphicSpecies species="Adelie" />
+
+  <script>
+    const sel = document.querySelector("#species");
+    sel?.addEventListener("change", (evt) => {
+      const value = evt.target.value;
+      location.pathname = "/species/" + value + "/"; // ← slash final
+    });
+  </script>
 </Layout>
