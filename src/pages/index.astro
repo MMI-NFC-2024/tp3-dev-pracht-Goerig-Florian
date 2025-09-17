@@ -2,31 +2,51 @@
 import Layout from "../layouts/Layout.astro";
 ---
 
-<Layout title="Accueil — R312-TP2 Florian Goerig MMi2 C1 Observable Plot">
-  <h1>Exemples de graphiques</h1>
+<Layout title="Accueil — TP3">
+  <h1 class="sr-only">Exemples de graphiques</h1>
 
-  <p class="card" style="margin-bottom:1rem;">
-    Ce site <strong
-      >réutilise la base de styles et une partie du contenu du TP1</strong
-    >
-    (structure, navigation, ton éditorial). Ici, on décline ces éléments pour expérimenter
-    trois intégrations de graphiques avec Observable Plot.
-  </p>
+  <div class="space-y-4">
+    <p class="text-lg">
+      Ce site <strong
+        >réutilise la base de styles et une partie du contenu du TP1</strong
+      >. On décline ces éléments pour expérimenter 3 intégrations avec
+      Observable Plot.
+    </p>
 
-  <nav class="nav-pills" aria-label="Sections">
-    <a href="/species">Espèces (3 pages dédiées)</a>
-    <a href="/test-iframe">Test IFRAME</a>
-    <a href="/species/anchors">Page à ancres (slider)</a>
-  </nav>
+    <!-- NAV : 3 gros boutons -->
+    <nav aria-label="Sections du TP" class="flex flex-wrap gap-3">
+      <a
+        href="/species/"
+        class="inline-flex items-center gap-2 rounded-full border border-gray-300 bg-white px-4 py-2 text-sm font-semibold shadow-sm hover:bg-gray-100"
+      >
+        <span aria-hidden>📊</span> Espèces (3 pages dédiées)
+      </a>
 
-  <div class="card">
-    <strong>Sources :</strong>
-    <ul>
-      <li>
-        Dataset pingouins (Palmer Penguins) — <code
-          >src/assets/penguins.json</code>
-      </li>
-      <li>Observable Plot — Getting Started</li>
-    </ul>
+      <a
+        href="/test-iframe/"
+        class="inline-flex items-center gap-2 rounded-full border border-gray-300 bg-white px-4 py-2 text-sm font-semibold shadow-sm hover:bg-gray-100"
+      >
+        <span aria-hidden>🧩</span> Test IFRAME
+      </a>
+
+      <a
+        href="/species/anchors/"
+        class="inline-flex items-center gap-2 rounded-full border border-gray-300 bg-white px-4 py-2 text-sm font-semibold shadow-sm hover:bg-gray-100"
+      >
+        <span aria-hidden>🔗</span> Page à ancres (slider)
+      </a>
+    </nav>
+
+    <!-- Sources (tu peux garder) -->
+    <div>
+      <p class="font-semibold">Sources :</p>
+      <ul class="list-disc pl-6">
+        <li>
+          Dataset pingouins (Palmer Penguins) — <code
+            >src/assets/penguins.json</code>
+        </li>
+        <li>Observable Plot — Getting Started</li>
+      </ul>
+    </div>
   </div>
 </Layout>
