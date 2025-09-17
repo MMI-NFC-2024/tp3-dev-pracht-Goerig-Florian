@@ -1,0 +1,76 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import GraphicSpecies from "../../components/GraphicSpecies.astro";
+import {
+  Tabs,
+  TabsList,
+  TabsTab,
+  TabsPanel,
+} from "accessible-astro-components";
+---
+
+<Layout title="Onglets — TP3">
+  <h1 class="text-3xl font-extrabold mb-4">
+    Espèces — Page avec onglets accessibles
+  </h1>
+
+  <Tabs class="w-full">
+    <!-- Liste des onglets -->
+    <TabsList class="flex gap-2">
+      <!-- Onglet 1 sélectionné -->
+      <TabsTab
+        id="tab-adelie"
+        controls="panel-adelie"
+        selected
+        class="!flex-1 !px-4 !py-2 !font-bold !rounded-t-xl !border !border-gray-200
+               !bg-white aria-selected:!bg-gray-50 hover:!bg-gray-50 !shadow-sm"
+      >
+        Adelie
+      </TabsTab>
+
+      <TabsTab
+        id="tab-gentoo"
+        controls="panel-gentoo"
+        class="!flex-1 !px-4 !py-2 !font-bold !rounded-t-xl !border !border-gray-200
+               !bg-white hover:!bg-gray-50 !shadow-sm"
+      >
+        Gentoo
+      </TabsTab>
+
+      <TabsTab
+        id="tab-chinstrap"
+        controls="panel-chinstrap"
+        class="!flex-1 !px-4 !py-2 !font-bold !rounded-t-xl !border !border-gray-200
+               !bg-white hover:!bg-gray-50 !shadow-sm"
+      >
+        Chinstrap
+      </TabsTab>
+    </TabsList>
+
+    <!-- Panneaux -->
+    <TabsPanel
+      id="panel-adelie"
+      labelledby="tab-adelie"
+      selected
+      class="!p-4 !border !border-gray-200 !rounded-b-xl !bg-white !min-h-[12rem] !shadow-sm"
+    >
+      <GraphicSpecies species="Adelie" title="Adelie" />
+    </TabsPanel>
+
+    <TabsPanel
+      id="panel-gentoo"
+      labelledby="tab-gentoo"
+      class="!p-4 !border !border-gray-200 !rounded-b-xl !bg-white !min-h-[12rem] !shadow-sm"
+    >
+      <GraphicSpecies species="Gentoo" title="Gentoo" />
+    </TabsPanel>
+
+    <TabsPanel
+      id="panel-chinstrap"
+      labelledby="tab-chinstrap"
+      class="!p-4 !border !border-gray-200 !rounded-b-xl !bg-white !min-h-[12rem] !shadow-sm"
+    >
+      <GraphicSpecies species="Chinstrap" title="Chinstrap" />
+    </TabsPanel>
+  </Tabs>
+</Layout>
