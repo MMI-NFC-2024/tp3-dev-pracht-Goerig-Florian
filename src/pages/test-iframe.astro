@@ -2,21 +2,38 @@
 import Layout from "../layouts/Layout.astro";
 ---
 
-<Layout>
-  <h1>Test IFRAME — Espèces de pingouins</h1>
+<Layout title="Test IFRAME — TP3">
+  <h1 class="text-3xl font-extrabold mb-4">
+    Test IFRAME — Espèces de pingouins
+  </h1>
 
-  <nav class="nav-pills" aria-label="Espèces">
-    <a href="/species/Adelie" target="speciesFrame">Adelie</a>
-    <a href="/species/Gentoo" target="speciesFrame">Gentoo</a>
-    <a href="/species/Chinstrap" target="speciesFrame">Chinstrap</a>
+  <nav class="flex flex-wrap gap-2 mb-4">
+    <a
+      href="/species/Adelie/"
+      target="speciesFrame"
+      class="inline-flex items-center rounded-full border border-gray-200 bg-white px-3 py-2 text-sm font-semibold shadow-sm hover:bg-gray-100"
+      >Adelie</a
+    >
+    <a
+      href="/species/Gentoo/"
+      target="speciesFrame"
+      class="inline-flex items-center rounded-full border border-gray-200 bg-white px-3 py-2 text-sm font-semibold shadow-sm hover:bg-gray-100"
+      >Gentoo</a
+    >
+    <a
+      href="/species/Chinstrap/"
+      target="speciesFrame"
+      class="inline-flex items-center rounded-full border border-gray-200 bg-white px-3 py-2 text-sm font-semibold shadow-sm hover:bg-gray-100"
+      >Chinstrap</a
+    >
   </nav>
 
-  <div style="border:1px solid #eee; border-radius:12px; overflow:hidden;">
+  <div class="border border-gray-200 rounded-xl overflow-hidden">
     <iframe
       name="speciesFrame"
-      src="/species/Adelie"
+      src="/species/Adelie/"
       title="Graphique d'espèce"
-      style="width:100%; height:600px; border:0; display:block;"
+      class="w-full h-[600px] block border-0"
       onload="resizeIframe(this)"></iframe>
   </div>
 
@@ -24,9 +41,8 @@ import Layout from "../layouts/Layout.astro";
     function resizeIframe(iframe) {
       try {
         const doc = iframe.contentDocument || iframe.contentWindow.document;
-        if (!doc) return;
-        const html = doc.documentElement,
-          body = doc.body;
+        const html = doc?.documentElement,
+          body = doc?.body;
         const h = Math.max(
           body?.scrollHeight || 0,
           html?.scrollHeight || 0,
@@ -36,9 +52,7 @@ import Layout from "../layouts/Layout.astro";
           html?.clientHeight || 0
         );
         iframe.style.height = h + 16 + "px";
-      } catch (e) {
-        console.warn("Redimensionnement iframe impossible :", e);
-      }
+      } catch (e) {}
     }
   </script>
 </Layout>
