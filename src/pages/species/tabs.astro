@@ -22,29 +22,37 @@ import {
         id="tab-adelie"
         controls="panel-adelie"
         selected
-        class="!flex-1 !px-4 !py-2 !font-bold !rounded-t-xl !border !border-gray-200 !bg-white aria-selected:!bg-gray-50 hover:!bg-gray-50 !shadow-sm"
+        class="!flex-1 !px-4 !py-2 !font-bold !rounded-t-xl
+               !border !border-gray-200 !bg-white !shadow-sm
+               !text-gray-900 hover:!text-gray-900 aria-selected:!text-gray-900focus-visible:!outline focus-visible:!outline-2 focus-visible:!outline-blue-400"
       >
         Adelie
       </TabsTab>
 
+      <!-- Onglet 2 -->
       <TabsTab
         id="tab-gentoo"
         controls="panel-gentoo"
-        class="!flex-1 !px-4 !py-2 !font-bold !rounded-t-xl !border !border-gray-200 !bg-white hover:!bg-gray-50 !shadow-sm"
+        class="!flex-1 !px-4 !py-2 !font-bold !rounded-t-xl
+               !border !border-gray-200 !bg-white !shadow-sm
+               !text-gray-700 hover:!text-gray-900 aria-selected:!text-gray-900focus-visible:!outline focus-visible:!outline-2 focus-visible:!outline-blue-400"
       >
         Gentoo
       </TabsTab>
 
+      <!-- Onglet 3 -->
       <TabsTab
         id="tab-chinstrap"
         controls="panel-chinstrap"
-        class="!flex-1 !px-4 !py-2 !font-bold !rounded-t-xl !border !border-gray-200 !bg-white hover:!bg-gray-50 !shadow-sm"
+        class="!flex-1 !px-4 !py-2 !font-bold !rounded-t-xl
+               !border !border-gray-200 !bg-white !shadow-sm
+               !text-gray-700 hover:!text-gray-900 aria-selected:!text-gray-900focus-visible:!outline focus-visible:!outline-2 focus-visible:!outline-blue-400"
       >
         Chinstrap
       </TabsTab>
     </TabsList>
 
-    <!-- Panneaux -->
+    <!-- Panneau 1 sélectionné -->
     <TabsPanel
       id="panel-adelie"
       labelledby="tab-adelie"
@@ -54,6 +62,7 @@ import {
       <GraphicSpecies species="Adelie" title="Adelie" />
     </TabsPanel>
 
+    <!-- Panneau 2 -->
     <TabsPanel
       id="panel-gentoo"
       labelledby="tab-gentoo"
@@ -62,6 +71,7 @@ import {
       <GraphicSpecies species="Gentoo" title="Gentoo" />
     </TabsPanel>
 
+    <!-- Panneau 3 -->
     <TabsPanel
       id="panel-chinstrap"
       labelledby="tab-chinstrap"
